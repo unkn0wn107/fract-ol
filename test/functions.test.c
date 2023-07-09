@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.test.c                                        :+:      :+:    :+:   */
+/*   stack_ops.test.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 00:25:08 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/09 23:26:09 by agaley           ###   ########lyon.fr   */
+/*   Created: 2023/05/09 22:56:32 by agaley            #+#    #+#             */
+/*   Updated: 2023/07/09 23:25:03 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-int	main(void)
+// Always OK
+int	test_1(void)
 {
-	int	ret;
-
-	ret = 0;
-	if (test_1() != 0)
-		ret = 1;
-	return (ret);
+	ft_printf("OK\n");
+	return (0);
 }

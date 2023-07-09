@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:27:51 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/09 01:07:06 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/09 23:26:15 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "../src/fractol.h"
 
-int	test_stack_rrotate(void);
+int	test_1(void);
 
 #endif

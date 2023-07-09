@@ -12,14 +12,21 @@
 
 #include "fractol.h"
 
+int	handle_keys(int key, void *params)
+{
+	(void)params;
+	ft_printf("%d - appuyée\n", key);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	char	*inputstr;
-	t_stack	stack_a;
 	int		noparam;
+	t_env	env;
 
 	if (argc < 2)
-		exit_error(20, NULL, NULL, NULL);
+		exit_error(20, NULL, NULL);
 	noparam = 1;
 	while (argv && --argc)
 	{
@@ -29,11 +36,10 @@ int	main(int argc, char **argv)
 	if (noparam == 1)
 		exit(0);
 	inputstr = parse_args(argv);
-	stack_a.id = 'a';
-	stack_a.head = NULL;
-	fill_stack(inputstr, &stack_a);
+	env.mlxptr = mlx_init();
+	env.winptr = mlx_new_window(env.mlxptr, 500, 500, "fract-ol");
+	mlx_key_hook(env.winptr, handle_keys, &env);
+	mlx_loop(env.mlxptr);
 	free(inputstr);
-	solve(&stack_a);
-	stack_free(&stack_a);
 	exit (0);
 }

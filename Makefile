@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:01:07 by agaley            #+#    #+#              #
-#    Updated: 2023/07/09 21:56:05 by agaley           ###   ########lyon.fr    #
+#    Updated: 2023/07/09 23:27:21 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,15 +17,12 @@ OBJ_DIR = obj
 TEST_DIR = test
 
 SRC = ${SRC_DIR}/fractol.c
-SRCS = ${SRC_DIR}/stack_adapter.c ${SRC_DIR}/stack_utils.c ${SRC_DIR}/stack_utils2.c \
-	${SRC_DIR}/stack_swap_push.c ${SRC_DIR}/stack_rotate.c \
-	${SRC_DIR}/solver.c ${SRC_DIR}/solver_algos.c \
-	${SRC_DIR}/parser.c ${SRC_DIR}/error.c ${SRC_DIR}/utils.c
+SRCS = ${SRC_DIR}/parser.c ${SRC_DIR}/error.c
 H = ${SRC_DIR}/fractol.h
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-SRC_TEST = ${TEST_DIR}/main.test.c ${TEST_DIR}/stack_ops.test.c
+SRC_TEST = ${TEST_DIR}/main.test.c ${TEST_DIR}/functions.test.c
 H_TEST = ${TEST_DIR}/test.h
 OBJ_TEST = $(SRC_TEST:$(TEST_DIR)/%.c=$(OBJ_DIR)/%.o)
 

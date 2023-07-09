@@ -6,21 +6,19 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:50:17 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/09 01:03:35 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/09 23:23:02 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	exit_error(int code, t_stack *stack, char **arr, char *str)
+int	exit_error(int code, char **arr, char *str)
 {
 	int	i;
 
 	(void)code;
 	if (code != 20)
 		ft_dprintf(2, "Error\n");
-	if (stack)
-		stack_free(stack);
 	i = 0;
 	while (arr && arr[i])
 		free(arr[i++]);
