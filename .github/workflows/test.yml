@@ -16,5 +16,11 @@ jobs:
       with:
         submodules: true
 
+    - name: Install pkg requirements
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: gcc make xorg libxext-dev libbsd-dev
+        version: 1.0
+
     - name: Test
       run: make test

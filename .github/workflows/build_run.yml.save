@@ -16,7 +16,11 @@ jobs:
       with:
         submodules: true
 
-    // sudo apt-get install gcc make xorg libxext-dev libbsd-dev
+    - name: Install pkg requirements
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: gcc make xorg libxext-dev libbsd-dev
+        version: 1.0
 
     - name: Build
       run: make
