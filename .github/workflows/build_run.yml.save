@@ -1,0 +1,25 @@
+name: Build and run
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    // sudo apt-get install gcc make xorg libxext-dev libbsd-dev
+
+    - name: Build
+      run: make
+
+    - name: Run
+      run: ./fractol "2 1 4"
