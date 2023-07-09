@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:01:07 by agaley            #+#    #+#              #
-#    Updated: 2023/07/09 02:19:53 by agaley           ###   ########lyon.fr    #
+#    Updated: 2023/07/09 02:43:02 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ $(OBJ_DIR)/%.o:			$(SRC_DIR)/%.c $(LIBFT_A) $(LIBMLX_A) $(H)
 $(OBJ_DIR)/fractol.o:			$(SRC) $(LIBFT_A) $(LIBMLX_A) $(H)
 		$(CC) $(OBJ_FLAGS) -o $@ -c $<
 
-unit-test:				${LIBFT} ${OBJ_TEST} ${OBJS} $(H) $(H_TEST)
+unit-test:				${LIBFT} ${LIBMLX} ${OBJ_TEST} ${OBJS} $(H) $(H_TEST)
 		${CC} ${CFLAGS} -g3 ${OBJ_TEST} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
 
 test:					unit-test
