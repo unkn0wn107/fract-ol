@@ -29,7 +29,6 @@ typedef struct s_env
 // Parser
 char	*parse_args(char **argv);
 
-
 // Error handlers
 int		exit_error(int code, char **arr, char *str);
 
