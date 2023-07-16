@@ -17,6 +17,10 @@
 # include "../libmlx/mlx.h"
 # include <limits.h>
 
+# define FRACT_JULIA 1
+# define FRACT_MANDELBROT 2
+# define FRACT_BURNINGSHIP 3
+
 // Integer stack definition
 typedef struct s_env
 {
@@ -27,9 +31,9 @@ typedef struct s_env
 }t_env;
 
 // Parser
-char	*parse_args(char **argv);
+void	parse_args(char **argv, t_env *env);
 
 // Error handlers
-int		exit_error(int code, char **arr, char *str);
+int		handle_exit(int code, char **arr, char *str);
 
 #endif

@@ -26,16 +26,8 @@ int	main(int argc, char **argv)
 	t_env	env;
 
 	if (argc < 2)
-		exit_error(20, NULL, NULL);
-	noparam = 1;
-	while (argv && --argc)
-	{
-		if (argc > 0 && argv[argc] && ft_strlen(argv[argc]) > 0)
-			noparam = 0;
-	}
-	if (noparam == 1)
-		exit(0);
-	inputstr = parse_args(argv);
+		handle_exit(20, NULL, NULL);
+	parse_args(argv, &env);
 	env.mlxptr = mlx_init();
 	env.winptr = mlx_new_window(env.mlxptr, 500, 500, "fract-ol");
 	mlx_key_hook(env.winptr, handle_keys, &env);
