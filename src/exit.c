@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:50:17 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/09 23:23:02 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/16 20:27:55 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	exit_error(int code, char **arr, char *str)
+int	handle_exit(int code, char **arr, char *str)
 {
 	int	i;
 
 	(void)code;
-	if (code != 20)
-		ft_dprintf(2, "Error\n");
 	i = 0;
 	while (arr && arr[i])
 		free(arr[i++]);
@@ -26,7 +24,11 @@ int	exit_error(int code, char **arr, char *str)
 		free(arr);
 	if (str)
 		free(str);
-	exit (1);
+	if (code == 0)
+		exit(0);
+	if (code == 20)
+		ft_printf("Args error\n");
+	exit(1);
 }
 
 // Gestion des erreurs
