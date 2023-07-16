@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:01:07 by agaley            #+#    #+#              #
-#    Updated: 2023/07/09 23:27:21 by agaley           ###   ########lyon.fr    #
+#    Updated: 2023/07/16 13:11:14 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ LIBMLX = libmlx
 LIBMLX_A = libmlx/libmlx.a
 MAKE_LIBMLX = make -C libmlx
 
+LIBX11 = -lXext -lX11
+
 MAKEFLAGS += --no-print-directory
 CFLAGS = -Wall -Wextra -Werror -pipe
 OBJ_FLAGS = ${CFLAGS} -I$(LIBFT) -I$(LIBMLX) -I$(SRC_DIR)
@@ -42,7 +44,7 @@ CC = gcc
 all:					${NAME}
 
 ${NAME}:				mkdir ${LIBFT} ${LIBMLX} ${OBJ} ${OBJS} $(H)
-		${CC} ${CFLAGS} ${OBJ} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
+		${CC} ${CFLAGS} ${LIBX11} ${OBJ} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
 
 lib_ft:
 		$(MAKE_LIBFT)
