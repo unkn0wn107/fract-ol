@@ -6,24 +6,15 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:50:17 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/16 20:27:55 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 00:57:56 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	handle_exit(int code, char **arr, char *str)
+void	handle_exit(int code, t_env *env)
 {
-	int	i;
-
-	(void)code;
-	i = 0;
-	while (arr && arr[i])
-		free(arr[i++]);
-	if (arr)
-		free(arr);
-	if (str)
-		free(str);
+	(void)env;
 	if (code == 0)
 		exit(0);
 	if (code == 20)

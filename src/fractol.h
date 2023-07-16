@@ -15,11 +15,27 @@
 
 # include "../libft/libft.h"
 # include "../libmlx/mlx.h"
-# include <limits.h>
+# include <math.h>
+# include <complex.h>
+
+# define PALETTE_SIZE 256
+# define MAX_ZOOM 10000
 
 # define FRACT_JULIA 1
 # define FRACT_MANDELBROT 2
 # define FRACT_BURNINGSHIP 3
+
+# define MOUSE_LEFT 1
+# define MOUSE_MIDDLE 2
+# define MOUSE_RIGHT 3
+# define MOUSE_UP 4
+# define MOUSE_DOWN 5
+
+# define KEY_ESC 65307
+# define KEY_LEFT 65361
+# define KEY_UP 65362
+# define KEY_RIGHT 65363
+# define KEY_DOWN 65364
 
 // Integer stack definition
 typedef struct s_env
@@ -28,12 +44,24 @@ typedef struct s_env
 	void	*winptr;
 	int		w;
 	int		h;
+	int		zoom;
+	int		fract;
+	int		xf;
+	int		yf;
+	size_t	iter;
+	void	*image;
+	int		xm;
+	int		ym;
+	int		palette[PALETTE_SIZE];
 }t_env;
 
 // Parser
 void	parse_args(char **argv, t_env *env);
 
 // Error handlers
-int		handle_exit(int code, char **arr, char *str);
+void	handle_exit(int code, t_env *env);
+
+// Renderer
+void	render_fractal(t_env *env);
 
 #endif
