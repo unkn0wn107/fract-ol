@@ -59,9 +59,16 @@ typedef struct s_env
 void	parse_args(char **argv, t_env *env);
 
 // Error handlers
-void	handle_exit(int code, t_env *env);
+void	handle_exit(int error, t_env *env);
 
 // Renderer
 void	render_fractal(t_env *env);
+
+// Window
+void	handle_zoom(int key, t_env *env);
+
+// Control
+int		handle_keys(int key, void *env);
+int		handle_mouse(int key, void *env);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:01:07 by agaley            #+#    #+#              #
-#    Updated: 2023/07/17 00:58:37 by agaley           ###   ########lyon.fr    #
+#    Updated: 2023/07/19 19:37:04 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ OBJ_DIR = obj
 TEST_DIR = test
 
 SRC = ${SRC_DIR}/fractol.c
-SRCS = ${SRC_DIR}/parser.c ${SRC_DIR}/renderer.c ${SRC_DIR}/exit.c
+SRCS = ${SRC_DIR}/parser.c ${SRC_DIR}/renderer.c ${SRC_DIR}/exit.c \
+		${SRC_DIR}/window.c ${SRC_DIR}/control.c
 H = ${SRC_DIR}/fractol.h
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -37,7 +38,7 @@ MAKE_LIBMLX = make -C libmlx
 LIBEXT = -lXext -lX11 -lm
 
 MAKEFLAGS += --no-print-directory
-CFLAGS = -Wall -Wextra -Werror -pipe
+CFLAGS = -Wall -Wextra -Werror -pipe -g3
 OBJ_FLAGS = ${CFLAGS} -I$(LIBFT) -I$(LIBMLX) -I$(SRC_DIR)
 CC = gcc
 
@@ -63,7 +64,7 @@ $(OBJ_DIR)/%.o:			$(SRC_DIR)/%.c mkdir $(LIBFT_A) $(LIBMLX_A) $(H)
 		$(CC) $(OBJ_FLAGS) -o $@ -c $<
 
 unit-test:				${LIBFT} ${LIBMLX} ${OBJ_TEST} ${OBJS} $(H) $(H_TEST)
-		${CC} ${CFLAGS} -g3 ${OBJ_TEST} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
+		${CC} ${CFLAGS} ${LIBEXT} -g3 ${OBJ_TEST} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
 
 test:					unit-test
 		./unit-test
