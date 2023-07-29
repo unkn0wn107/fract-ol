@@ -48,7 +48,7 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 	c = (x - env->x0f) * 4 / env->w + ((y - env->y0f) * 4 / env->h) * I;
 	z = 0;
 	iter = 0;
-	while(cabs(z) < 2 && iter < env->iter)
+	while (cabs(z) < 2 && iter < env->iter)
 	{
 		z = z * z + c;
 		iter++;
