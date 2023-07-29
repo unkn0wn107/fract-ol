@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:51:30 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/19 19:26:15 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/29 02:15:50 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	parse_args(char **argv, t_env *env)
 	if ((argv[2] && argv[3] && ft_strcmp(ft_itoa(env->h), argv[3]) != 0)
 		|| (argv[2] && ft_strcmp(ft_itoa(env->w), argv[2]) != 0)
 		|| env->w <= 2 || env->h <= 2 || env->w > 7000 || env->h > 7000)
-		handle_exit(1, env);
+		handle_exit(1, MSG_ERR_ARGS, env);
 	if (ft_strncmp(argv[1], "julia", 6) == 0)
 		env->fract = FRACT_JULIA;
 	else if (ft_strncmp(argv[1], "mandelbrot", 11) == 0)
@@ -37,5 +37,14 @@ void	parse_args(char **argv, t_env *env)
 	else if (ft_strncmp(argv[1], "burningship", 12) == 0)
 		env->fract = FRACT_BURNINGSHIP;
 	else
-		handle_exit(1, env);
+		handle_exit(1, MSG_ERR_ARGS, env);
+}
+
+void	init_env(t_env *env)
+{
+	env->w = WIN_WIDTH;
+	env->h = WIN_HEIGHT;
+	env->image = NULL;
+	env->iter = 5;
+	init_palette(env);
 }

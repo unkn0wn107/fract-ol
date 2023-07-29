@@ -20,6 +20,11 @@
 
 # define PALETTE_SIZE 256
 # define MAX_ZOOM 10000
+# define WIN_WIDTH 1918
+# define WIN_HEIGHT 1024
+
+# define MIN_COLOR_SETS 0
+# define MAX_COLOR_SETS 1
 
 # define FRACT_JULIA 1
 # define FRACT_MANDELBROT 2
@@ -36,36 +41,58 @@
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
+# define KEY_COLOR 99
+# define KEY_PGUP 65365
+# define KEY_PGDOWN 65366
 
-// Integer stack definition
+# define MSG_ERR_ARGS "Args error\n"
+# define MSG_ERR_MLX_INIT "MLX initialization error\n"
+# define MSG_ERR_WIN_INIT "Window initialization error\n"
+# define MSG_ERR_MEMORY "Memory allocation error\n"
+# define MSG_ERR_ARRAY_NOT_ZERO "Array value is not zero\n"
+# define MSG_BYE "Bye!"
+
+// Environment env definition
 typedef struct s_env
 {
 	void	*mlxptr;
 	void	*winptr;
 	int		w;
 	int		h;
-	int		zoom;
+	size_t	zoom;
+	size_t	zoom_step;
 	int		fract;
 	int		xf;
 	int		yf;
+	int		x0f;
+	int		y0f;
 	size_t	iter;
 	void	*image;
 	int		xm;
 	int		ym;
 	int		palette[PALETTE_SIZE];
+	int		color;
 }t_env;
 
 // Parser
 void	parse_args(char **argv, t_env *env);
+void	init_env(t_env *env);
 
 // Error handlers
-void	handle_exit(int error, t_env *env);
+void	handle_exit(int error, char *msg, t_env *env);
 
 // Renderer
 void	render_fractal(t_env *env);
 
+// Renderer utils
+void	init_palette(t_env *env);
+void	change_color(t_env *env);
+void	change_zoom_step(int key, t_env *env);
+
 // Window
 void	handle_zoom(int key, t_env *env);
+void	create_image(t_env *env);
+void	refresh_image(t_env *env);
 
 // Control
 int		handle_keys(int key, void *env);

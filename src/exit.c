@@ -6,19 +6,19 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:50:17 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/19 18:55:38 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/29 02:10:58 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	handle_exit(int error, t_env *env)
+void	handle_exit(int error, char *msg, t_env *env)
 {
 	(void)env;
 	if (error == 0)
 		exit(0);
-	if (error == 1)
-		ft_printf("Args error\n");
+	else
+		ft_printf(msg);
 	exit(1);
 }
 

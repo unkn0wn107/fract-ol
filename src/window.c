@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:22:46 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/19 18:47:44 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/27 04:12:29 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,20 @@ void	handle_zoom(int key, t_env *env)
 	env->xf = env->xm;
 	env->yf = env->ym;
 	if (key == MOUSE_UP && env->zoom <= MAX_ZOOM)
-		env->zoom += 1;
-	else if (key == MOUSE_DOWN && env->zoom >= 0)
-		env->zoom -= 1;
+		env->zoom += env->zoom_step;
+	else if (key == MOUSE_DOWN && env->zoom > env->zoom_step)
+		env->zoom -= env->zoom_step;
 	render_fractal(env);
+}
+
+void	create_image(t_env *env)
+{
+	if (env->image)
+		mlx_destroy_image(env->mlxptr, env->image);
+	env->image = mlx_new_image(env->mlxptr, env->w, env->h);
+}
+
+void	refresh_image(t_env *env)
+{
+	mlx_put_image_to_window(env->mlxptr, env->winptr, env->image, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:25:14 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/19 19:05:08 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/29 02:10:15 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@
 int	handle_keys(int key, void *env)
 {
 	if (key == KEY_ESC)
-		handle_exit(0, env);
+		handle_exit(0, MSG_BYE, env);
+	if (key == KEY_COLOR)
+		change_color(env);
+	if (key == KEY_PGUP || key == KEY_PGDOWN)
+		change_zoom_step(key, env);
+	render_fractal(env);
 	ft_printf("%d - appuyée\n", key);
 	return (0);
 }

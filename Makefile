@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:01:07 by agaley            #+#    #+#              #
-#    Updated: 2023/07/29 02:52:52 by agaley           ###   ########lyon.fr    #
+#    Updated: 2023/07/29 02:54:34 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,10 @@ OBJ_DIR = obj
 TEST_DIR = test
 
 SRC = ${SRC_DIR}/fractol.c
-SRCS = ${SRC_DIR}/parser.c ${SRC_DIR}/renderer.c ${SRC_DIR}/exit.c \
+SRCS = ${SRC_DIR}/parser.c ${SRC_DIR}/renderer.c ${SRC_DIR}/renderer_utils.c \
 		${SRC_DIR}/window.c ${SRC_DIR}/control.c \
-		${SRC_DIR}/matrix.c
+		${SRC_DIR}/matrix.c \
+		${SRC_DIR}/exit.c
 H = ${SRC_DIR}/fractol.h
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -65,7 +66,7 @@ $(OBJ_DIR)/%.test.o:	$(TEST_DIR)/%.test.c mkdir $(LIBFT_A) $(LIBMLX_A) $(H) $(H_
 $(OBJ_DIR)/%.o:			$(SRC_DIR)/%.c mkdir $(LIBFT_A) $(LIBMLX_A) $(H)
 		$(CC) $(OBJ_FLAGS) -o $@ -c $<
 
-unit-test:				${LIBFT} ${LIBMLX} ${OBJ_TEST} ${OBJS} $(H) $(H_TEST)
+unit-test:				mkdir ${LIBFT} ${LIBMLX} ${OBJ_TEST} ${OBJS} $(H) $(H_TEST)
 		${CC} ${CFLAGS} ${LIBEXT} -g3 ${OBJ_TEST} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
 
 test:					unit-test

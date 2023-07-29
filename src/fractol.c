@@ -17,16 +17,15 @@ int	main(int argc, char **argv)
 	t_env	env;
 
 	if (argc < 2)
-		handle_exit(1, NULL);
-	env.w = 1918;
-	env.h = 1024;
+		handle_exit(1, MSG_ERR_ARGS, NULL);
+	init_env(&env);
 	parse_args(argv, &env);
 	env.mlxptr = mlx_init();
 	if (!env.mlxptr)
-		handle_exit(1, &env);
+		handle_exit(1, MSG_ERR_MLX_INIT, &env);
 	env.winptr = mlx_new_window(env.mlxptr, env.w, env.h, "fract-ol");
 	if (!env.winptr)
-		handle_exit(1, &env);
+		handle_exit(1, MSG_ERR_WIN_INIT, &env);
 	mlx_key_hook(env.winptr, handle_keys, &env);
 	mlx_mouse_hook(env.winptr, handle_mouse, &env);
 	mlx_loop(env.mlxptr);
