@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:25:08 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/09 23:26:09 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/07/29 02:36:42 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	int	ret;
 
 	ret = 0;
-	if (test_1() != 0)
+	if (test_create_2d_array() != 0)
 		ret = 1;
 	return (ret);
 }

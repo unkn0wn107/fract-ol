@@ -71,4 +71,7 @@ void	handle_zoom(int key, t_env *env);
 int		handle_keys(int key, void *env);
 int		handle_mouse(int key, void *env);
 
+// Matrix
+double	**create_2d_array(ssize_t width, ssize_t height);
+
 #endif

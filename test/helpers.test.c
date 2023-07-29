@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   helpers.test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 00:27:51 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/29 02:36:24 by agaley           ###   ########lyon.fr   */
+/*   Created: 2023/07/29 02:18:12 by agaley            #+#    #+#             */
+/*   Updated: 2023/07/29 02:41:38 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "test.h"
 
-# include "../src/fractol.h"
-
-int	test_create_2d_array(void);
-
-// Helpers
-int	report_result(int pass, char *message, int suite_failed);
-
-#endif
+int	report_result(int pass, char *message, int suite_failed)
+{
+	if (pass)
+	{
+		(void)suite_failed;
+		ft_printf("OK : ", message);
+		return (0);
+	}
+	else
+	{
+		suite_failed = 1;
+		ft_printf("!!!KO : ", message);
+		return (1);
+	}
+}
