@@ -21,7 +21,7 @@ static void	init_env(t_env *env)
 	env->x0f = 0;
 	env->y0f = 0;
 	env->zoom = 1;
-	init_palette(env);
+	palette_init(env);
 }
 
 int	main(int argc, char **argv)

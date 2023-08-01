@@ -84,9 +84,9 @@ void	handle_exit(int error, char *msg, t_env *env);
 void	render_fractal(t_env *env);
 
 // Renderer utils
-void	init_palette(t_env *env);
-void	change_color(t_env *env);
-void	change_zoom_step(int key, t_env *env);
+void	palette_init(t_env *env);
+void	palette_change_color(t_env *env);
+void	zoom_change_step(int key, t_env *env);
 
 // Window
 void	handle_zoom(int key, t_env *env);
