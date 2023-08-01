@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/29 02:16:11 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 01:19:48 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,49 @@
 // }
 // plot(x, y, collor);
 
+// static void	render_mandelbrot(t_env *env, int x, int y)
+// {
+// 	double complex	c;
+// 	double complex	z;
+// 	size_t			iter;
+// 	c = (x - env->x0f) * 4 / env->w + ((y - env->y0f) * 4 / env->h) * I;
+// 	z = 0;
+// 	iter = 0;
+// 	while (cabs(z) < 2 && iter < env->iter)
+// 	{
+// 		z = z * z + c;
+// 		iter++;
+// 	}
+// 	((int *)env->image)[x * y] = env->palette[iter % PALETTE_SIZE];
+// }
+
 static void	render_mandelbrot(t_env *env, int x, int y)
 {
-	double complex	c;
-	double complex	z;
-	size_t			iter;
+	size_t	i;
+	double	z[2];
+	double	z2[2];
+	double	tmp;
+	unsigned int *image;
 
-	c = (x - env->x0f) * 4 / env->w + ((y - env->y0f) * 4 / env->h) * I;
-	z = 0;
-	iter = 0;
-	while (cabs(z) < 2 && iter < env->iter)
+	i = 0;
+	z[0] = 0.0;
+	z[1] = 0.0;
+	z2[0] = 0.0;
+	z2[1] = 0.0;
+	image = (unsigned int *)env->image;
+	while (i < env->iter && z2[0] + z2[1] <= 4)
 	{
-		z = z * z + c;
-		iter++;
+		z2[0] = sqrt(z[0]);
+		z2[1] = sqrt(z[1]);
+		tmp = z2[0] - z2[1] + x / env->zoom + env->x0f;
+		z[1] = 2 * z[0] * z[1] + y / env->zoom + env->y0f;
+		z[0] = tmp;
+		i++;
 	}
-	((int *)env->image)[x * y] = env->palette[iter % PALETTE_SIZE];
+	if (i == env->iter)
+		image[y * env->w + x] = 0;
+	else
+		image[y * env->w + x] = env->palette[i % PALETTE_SIZE];
 }
 
 static void	render_julia(t_env *env, int x, int y)
@@ -70,27 +98,40 @@ static void	render_burningship(t_env *env, int x, int y)
 	(void)y;
 }
 
+static void	ft_noop(t_env *env, int i, int j)
+{
+	(void)env;
+	(void)i;
+	(void)j;
+}
+
 void	render_fractal(t_env *env)
 {
 	void	(*fun)(t_env*, int, int);
 	int		x;
 	int		y;
 
+	fun = ft_noop;
 	if (env->fract == FRACT_JULIA)
 		fun = render_julia;
 	else if (env->fract == FRACT_MANDELBROT)
 		fun = render_mandelbrot;
 	else if (env->fract == FRACT_BURNINGSHIP)
 		fun = render_burningship;
-	if (!fun)
+	else
 		handle_exit(1, MSG_ERR_ARGS, NULL);
 	create_image(env);
-	env->x0f = env->w / 2;
-	env->y0f = env->h / 2;
-	x = 0;
-	y = 0;
-	while (y++ <= env->h)
-		while (x++ <= env->w)
+	env->x0 = env->w / 2;
+	env->y0 = env->h / 2;
+	x = -1;
+	y = -1;
+	while (++y < env->h)
+	{
+		while (++x < env->w)
 			fun(env, x, y);
+	}
 	refresh_image(env);
 }
+
+			// m[row][col] = env->x0f - env->x0 + col * (2.0 * env->zoom) / width;
+			// m[row][col] = env->y0f - env->y0 + row * (2.0 * env->zoom) / height;

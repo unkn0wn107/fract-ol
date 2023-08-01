@@ -62,10 +62,12 @@ typedef struct s_env
 	size_t	zoom;
 	size_t	zoom_step;
 	int		fract;
-	int		xf;
-	int		yf;
-	int		x0f;
-	int		y0f;
+	double	xf;
+	double	yf;
+	double	x0f;
+	double	y0f;
+	double	x0;
+	double	y0;
 	size_t	iter;
 	void	*image;
 	int		xm;
@@ -78,7 +80,7 @@ typedef struct s_env
 void	parse_args(char **argv, t_env *env);
 
 // Error handlers
-void	handle_exit(int error, char *msg, t_env *env);
+void	handle_exit(int error, const char *msg, t_env *env);
 
 // Renderer
 void	render_fractal(t_env *env);
