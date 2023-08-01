@@ -12,18 +12,6 @@
 
 #include "fractol.h"
 
-static void	init_env(t_env *env)
-{
-	env->w = WIN_WIDTH;
-	env->h = WIN_HEIGHT;
-	env->image = NULL;
-	env->iter = 5;
-	env->x0f = 0;
-	env->y0f = 0;
-	env->zoom = 1;
-	palette_init(env);
-}
-
 int	main(int argc, char **argv)
 {
 	t_env	env;

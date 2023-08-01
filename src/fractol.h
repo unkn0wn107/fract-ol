@@ -50,7 +50,7 @@
 # define MSG_ERR_WIN_INIT "Window initialization error\n"
 # define MSG_ERR_MEMORY "Memory allocation error\n"
 # define MSG_ERR_ARRAY_NOT_ZERO "Array value is not zero\n"
-# define MSG_BYE "Bye!"
+# define MSG_BYE "Bye!\n"
 
 // Environment env definition
 typedef struct s_env
@@ -76,6 +76,8 @@ typedef struct s_env
 	int		color;
 }t_env;
 
+void	init_env(t_env *env);
+
 // Parser
 void	parse_args(char **argv, t_env *env);
 
@@ -100,6 +102,6 @@ int		handle_keys(int key, void *env);
 int		handle_mouse(int key, void *env);
 
 // Matrix
-double	**create_2d_array(ssize_t width, ssize_t height);
+double	**create_zoom_matrix(size_t width, size_t height, t_env *env);
 
 #endif

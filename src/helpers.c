@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.test.c                                     :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/29 02:18:12 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/02 01:38:46 by agaley           ###   ########lyon.fr   */
+/*   Created: 2023/08/02 01:35:16 by agaley            #+#    #+#             */
+/*   Updated: 2023/08/02 01:35:35 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "fractol.h"
 
-int	report_result(int pass, char *message, int suite_failed)
+void	init_env(t_env *env)
 {
-	if (pass)
-	{
-		(void)suite_failed;
-		ft_printf("OK : %s", message);
-		return (0);
-	}
-	else
-	{
-		suite_failed = 1;
-		ft_printf("!!!KO : %s", message);
-		return (1);
-	}
+	env->w = WIN_WIDTH;
+	env->h = WIN_HEIGHT;
+	env->image = NULL;
+	env->iter = 5;
+	env->x0f = 0;
+	env->y0f = 0;
+	env->zoom = 1;
+	palette_init(env);
 }
