@@ -41,8 +41,12 @@ int	handle_keys(int key, void *env)
  *
  * @returns None
  */
-int	handle_mouse(int key, void *env)
+int	handle_mouse(int key, void *param)
 {
+	t_env	*env;
+
+	env = (t_env *)param;
+	printf("env pointer in handle_mouse: %p - %d\n", env, env->h);
 	if (key == MOUSE_UP || key == MOUSE_DOWN)
 		handle_zoom(key, env);
 	ft_printf("%d - souris\n", key);
