@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:51:30 by agaley            #+#    #+#             */
-/*   Updated: 2023/07/29 02:15:50 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/01 23:01:53 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,4 @@ void	parse_args(char **argv, t_env *env)
 		env->fract = FRACT_BURNINGSHIP;
 	else
 		handle_exit(1, MSG_ERR_ARGS, env);
-}
-
-void	init_env(t_env *env)
-{
-	env->w = WIN_WIDTH;
-	env->h = WIN_HEIGHT;
-	env->image = NULL;
-	env->iter = 5;
-	init_palette(env);
 }

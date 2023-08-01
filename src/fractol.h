@@ -76,7 +76,6 @@ typedef struct s_env
 
 // Parser
 void	parse_args(char **argv, t_env *env);
-void	init_env(t_env *env);
 
 // Error handlers
 void	handle_exit(int error, char *msg, t_env *env);
