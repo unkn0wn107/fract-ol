@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/02 01:19:48 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 01:40:44 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@
 
 static void	render_mandelbrot(t_env *env, int x, int y)
 {
-	size_t	i;
-	double	z[2];
-	double	z2[2];
-	double	tmp;
-	unsigned int *image;
+	size_t			i;
+	double			z[2];
+	double			z2[2];
+	double			tmp;
+	unsigned int	*image;
 
 	i = 0;
 	z[0] = 0.0;

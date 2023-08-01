@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 21:10:26 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/02 01:19:21 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 01:42:36 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	palette_init(t_env *env)
 	i = 0;
 	while (i < PALETTE_SIZE)
 	{
-		env->palette[i] = i * (0xFFFFFF / PALETTE_SIZE); // Scale color to fit within palette size
+		env->palette[i] = i * (0xFFFFFF / PALETTE_SIZE);
 		// env->palette[i] = mlx_get_color_value(env->mlxptr, color);
 		i++;
 	}
