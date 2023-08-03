@@ -73,9 +73,10 @@ typedef struct s_env
 	double	y0;
 	size_t	iter;
 	void	*image;
+	char	*img_data;
 	int		xm;
 	int		ym;
-	int		palette[PALETTE_SIZE];
+	unsigned int		palette[PALETTE_SIZE];
 	int		color;
 }t_env;
 

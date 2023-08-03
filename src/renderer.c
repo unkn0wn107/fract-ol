@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/02 01:40:44 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 00:24:29 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 	z[1] = 0.0;
 	z2[0] = 0.0;
 	z2[1] = 0.0;
-	image = (unsigned int *)env->image;
+	image = (unsigned int *)env->img_data;
 	while (i < env->iter && z2[0] + z2[1] <= 4)
 	{
 		z2[0] = sqrt(z[0]);
@@ -124,12 +124,16 @@ void	render_fractal(t_env *env)
 	create_image(env);
 	env->x0 = env->w / 2;
 	env->y0 = env->h / 2;
-	x = -1;
-	y = -1;
-	while (++y < env->h)
+	y = 0;
+	while (y < env->h)
 	{
-		while (++x < env->w)
+		x = 0;
+		while (x < env->w)
+		{
 			fun(env, x, y);
+			x++;
+		}
+		y++;
 	}
 	refresh_image(env);
 }
