@@ -57,6 +57,9 @@ typedef struct s_env
 {
 	void	*mlxptr;
 	void	*winptr;
+	int		e;
+	int		sl;
+	int		bpp;
 	int		w;
 	int		h;
 	size_t	zoom;
@@ -93,13 +96,13 @@ void	palette_change_color(t_env *env);
 void	zoom_change_step(int key, t_env *env);
 
 // Window
-void	handle_zoom(int key, t_env *env);
+void	handle_zoom(int key, int x, int y, t_env *env);
 void	create_image(t_env *env);
 void	refresh_image(t_env *env);
 
 // Control
 int		handle_keys(int key, void *env);
-int		handle_mouse(int key, void *env);
+int		handle_mouse(int key, int x, int y, void *env);
 
 // Matrix
 double	**create_zoom_matrix(size_t width, size_t height, t_env *env);

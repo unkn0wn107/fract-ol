@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:35:16 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/02 01:35:35 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 00:22:59 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	init_env(t_env *env)
 	env->x0f = 0;
 	env->y0f = 0;
 	env->zoom = 1;
+	env->zoom_step = 1;
 	palette_init(env);
 }

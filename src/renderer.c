@@ -78,6 +78,7 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 		z[0] = tmp;
 		i++;
 	}
+	printf("(%d,%d), ", x, y);
 	if (i == env->iter)
 		image[y * env->w + x] = 0;
 	else

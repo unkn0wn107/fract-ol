@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:25:14 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/02 00:49:51 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 00:10:12 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	handle_keys(int key, void *env)
  *
  * @returns None
  */
-int	handle_mouse(int key, void *param)
+int	handle_mouse(int key, int x, int y, void *param)
 {
 	t_env	*env;
 
 	env = (t_env *)param;
 	printf("env pointer in handle_mouse: %p - %d\n", env, env->h);
 	if (key == MOUSE_UP || key == MOUSE_DOWN)
-		handle_zoom(key, env);
+		handle_zoom(key, x, y, env);
 	ft_printf("%d - souris\n", key);
 	return (0);
 }
