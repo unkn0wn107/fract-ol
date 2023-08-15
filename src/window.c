@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:22:46 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/04 00:21:20 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/15 04:31:51 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	create_image(t_env *env)
 
 void	refresh_image(t_env *env)
 {
-	mlx_put_image_to_window(env->mlxptr, env->winptr, env->image, 0, 0);
+	if (env->image)
+		mlx_put_image_to_window(env->mlxptr, env->winptr, env->image, 0, 0);
 }

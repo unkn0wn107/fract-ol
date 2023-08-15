@@ -14,16 +14,13 @@
 
 void	palette_init(t_env *env)
 {
-	int	i;
-	// int color;
+	int		i;
+	double	gradient_step;
 
 	i = 0;
-	while (i < PALETTE_SIZE)
-	{
-		env->palette[i] = i * (0xFFFFFF / PALETTE_SIZE);
-		// env->palette[i] = mlx_get_color_value(env->mlxptr, color);
-		i++;
-	}
+	gradient_step = (double)0xFFFFFF / PALETTE_SIZE;
+	while (i++ < PALETTE_SIZE)
+		env->palette[i] = (unsigned int)(i * gradient_step);
 }
 
 void	palette_change_color(t_env *env)

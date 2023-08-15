@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:51:50 by agaley            #+#    #+#             */
-/*   Updated: 2023/06/28 18:05:15 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/15 04:32:37 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 # include <math.h>
 # include <complex.h>
 
-# define PALETTE_SIZE 256
+# define PALETTE_SIZE 4
 # define MAX_ZOOM 10000
 # define WIN_WIDTH 1918
 # define WIN_HEIGHT 1024
+
+# define COEFF 0.1
 
 # define MIN_COLOR_SETS 0
 # define MAX_COLOR_SETS 1

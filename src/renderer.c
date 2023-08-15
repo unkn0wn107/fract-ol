@@ -6,11 +6,39 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/04 00:24:29 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/15 04:32:37 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+static void	render_mandelbrot(t_env *env, int x, int y)
+{
+	size_t			i;
+	double			z[2];
+	double			z2[2];
+	double			tmp;
+
+	i = 0;
+	z[0] = 0.0;
+	z[1] = 0.0;
+	z2[0] = 0.0;
+	z2[1] = 0.0;
+	while (i < env->iter && z2[0] + z2[1] <= 4)
+	{
+		z2[0] = sqrt(z[0]);
+		z2[1] = sqrt(z[1]);
+		tmp = z2[0] - z2[1] + COEFF * (x - env->x0) / env->zoom;
+		z[1] = 2 * z[0] * z[1] + COEFF * (y - env->y0) / env->zoom;
+		z[0] = tmp;
+		i++;
+	}
+	if (i == env->iter)
+		mlx_pixel_put(env->mlxptr, env->winptr, x, y, 0);
+	else
+		mlx_pixel_put(env->mlxptr, env->winptr, x, y,
+			env->palette[i % PALETTE_SIZE]);
+}
 
 // static void	render_mandelbrot(t_env *env, int x, int y)
 // {
@@ -55,35 +83,35 @@
 // 	((int *)env->image)[x * y] = env->palette[iter % PALETTE_SIZE];
 // }
 
-static void	render_mandelbrot(t_env *env, int x, int y)
-{
-	size_t			i;
-	double			z[2];
-	double			z2[2];
-	double			tmp;
-	unsigned int	*image;
+// static void	render_mandelbrot(t_env *env, int x, int y)
+// {
+// 	size_t			i;
+// 	double			z[2];
+// 	double			z2[2];
+// 	double			tmp;
+// 	unsigned int	*image;
 
-	i = 0;
-	z[0] = 0.0;
-	z[1] = 0.0;
-	z2[0] = 0.0;
-	z2[1] = 0.0;
-	image = (unsigned int *)env->img_data;
-	while (i < env->iter && z2[0] + z2[1] <= 4)
-	{
-		z2[0] = sqrt(z[0]);
-		z2[1] = sqrt(z[1]);
-		tmp = z2[0] - z2[1] + x / env->zoom + env->x0f;
-		z[1] = 2 * z[0] * z[1] + y / env->zoom + env->y0f;
-		z[0] = tmp;
-		i++;
-	}
-	printf("(%d,%d), ", x, y);
-	if (i == env->iter)
-		image[y * env->w + x] = 0;
-	else
-		image[y * env->w + x] = env->palette[i % PALETTE_SIZE];
-}
+// 	i = 0;
+// 	z[0] = 0.0;
+// 	z[1] = 0.0;
+// 	z2[0] = 0.0;
+// 	z2[1] = 0.0;
+// 	image = (unsigned int *)env->img_data;
+// 	while (i < env->iter && z2[0] + z2[1] <= 4)
+// 	{
+// 		z2[0] = sqrt(z[0]);
+// 		z2[1] = sqrt(z[1]);
+// 		tmp = z2[0] - z2[1] + x / env->zoom + env->x0f;
+// 		z[1] = 2 * z[0] * z[1] + y / env->zoom + env->y0f;
+// 		z[0] = tmp;
+// 		i++;
+// 	}
+// 	printf("(%d,%d), ", x, y);
+// 	if (i == env->iter)
+// 		image[y * env->w + x] = 0;
+// 	else
+// 		image[y * env->w + x] = env->palette[i % PALETTE_SIZE];
+// }
 
 static void	render_julia(t_env *env, int x, int y)
 {
@@ -121,6 +149,7 @@ void	render_fractal(t_env *env)
 		fun = render_burningship;
 	else
 		handle_exit(1, MSG_ERR_ARGS, NULL);
+	refresh_image(env);
 	create_image(env);
 	env->x0 = env->w / 2;
 	env->y0 = env->h / 2;
@@ -135,7 +164,6 @@ void	render_fractal(t_env *env)
 		}
 		y++;
 	}
-	refresh_image(env);
 }
 
 			// m[row][col] = env->x0f - env->x0 + col * (2.0 * env->zoom) / width;
