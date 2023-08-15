@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/15 04:45:04 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 01:23:01 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 	size_t			i;
 	double			z[2];
 	double			z2[2];
+	double			coord[2];
 	double			tmp;
 
 	i = 0;
@@ -24,12 +25,14 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 	z[1] = 0.0;
 	z2[0] = 0.0;
 	z2[1] = 0.0;
+	coord[0] = (double)x / env->wzoom - env->x0;
+	coord[1] = (double)y / env->hzoom - env->y0;
 	while (i < env->iter && z2[0] + z2[1] <= 4)
 	{
-		z2[0] = sqrt(z[0]);
-		z2[1] = sqrt(z[1]);
-		tmp = z2[0] - z2[1] + COEFF * (x + env->xm - env->x0) / env->zoom;
-		z[1] = 2 * z[0] * z[1] + COEFF * (y + env->ym - env->y0) / env->zoom;
+		z2[0] = z[0] * z[0];
+		z2[1] = z[1] * z[1];
+		tmp = z2[0] - z2[1] + coord[0];
+		z[1] = 2 * z[0] * z[1] + coord[1];
 		z[0] = tmp;
 		i++;
 	}
@@ -149,10 +152,7 @@ void	render_fractal(t_env *env)
 		fun = render_burningship;
 	else
 		handle_exit(1, MSG_ERR_ARGS, NULL);
-	refresh_image(env);
 	create_image(env);
-	env->x0 = env->w / 2;
-	env->y0 = env->h / 2;
 	y = 0;
 	while (y < env->h)
 	{
@@ -164,6 +164,7 @@ void	render_fractal(t_env *env)
 		}
 		y++;
 	}
+	// refresh_image(env);
 }
 
 			// m[row][col] = env->x0f - env->x0 + col * (2.0 * env->zoom) / width;

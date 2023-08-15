@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:51:50 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/15 04:32:37 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 01:23:19 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include "../libmlx/mlx.h"
 # include <math.h>
 # include <complex.h>
+# include <limits.h>
 
-# define PALETTE_SIZE 4
-# define MAX_ZOOM 10000
+# define PALETTE_SIZE 25
+# define MAX_ZOOM INT_MAX
 # define WIN_WIDTH 1918
 # define WIN_HEIGHT 1024
 
@@ -57,29 +58,35 @@
 // Environment env definition
 typedef struct s_env
 {
-	void	*mlxptr;
-	void	*winptr;
-	int		e;
-	int		sl;
-	int		bpp;
-	int		w;
-	int		h;
-	size_t	zoom;
-	size_t	zoom_step;
-	int		fract;
-	double	xf;
-	double	yf;
-	double	x0f;
-	double	y0f;
-	double	x0;
-	double	y0;
-	size_t	iter;
-	void	*image;
-	char	*img_data;
-	int		xm;
-	int		ym;
-	unsigned int		palette[PALETTE_SIZE];
-	int		color;
+	void			*mlxptr;
+	void			*winptr;
+	int				e;
+	int				sl;
+	int				bpp;
+	int				w;
+	int				h;
+	char			*hstr;
+	char			*wstr;
+	size_t			zoom;
+	size_t			zoom_step;
+	size_t			wzoom;
+	size_t			hzoom;
+	int				fract;
+	int				xoff;
+	int				yoff;
+	double			xf;
+	double			yf;
+	double			x0f;
+	double			y0f;
+	double			x0;
+	double			y0;
+	size_t			iter;
+	void			*image;
+	char			*img_data;
+	int				xm;
+	int				ym;
+	unsigned int	palette[PALETTE_SIZE];
+	int				color;
 }t_env;
 
 void	init_env(t_env *env);
@@ -95,8 +102,7 @@ void	render_fractal(t_env *env);
 
 // Renderer utils
 void	palette_init(t_env *env);
-void	palette_change_color(t_env *env);
-void	zoom_change_step(int key, t_env *env);
+void	zoom_update_view(int x, int y, t_env *env);
 
 // Window
 void	handle_zoom(int key, int x, int y, t_env *env);
@@ -106,6 +112,11 @@ void	refresh_image(t_env *env);
 // Control
 int		handle_keys(int key, void *env);
 int		handle_mouse(int key, int x, int y, void *env);
+
+// Control utils
+void	palette_change_color(t_env *env);
+void	zoom_change_step(int key, t_env *env);
+void	zoom_increment(int key, t_env *env);
 
 // Matrix
 double	**create_zoom_matrix(size_t width, size_t height, t_env *env);

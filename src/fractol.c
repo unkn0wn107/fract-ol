@@ -18,14 +18,16 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		handle_exit(1, MSG_ERR_ARGS, NULL);
-	init_env(&env);
+	env.image = NULL;
 	parse_args(argv, &env);
+	init_env(&env);
 	env.mlxptr = mlx_init();
 	if (!env.mlxptr)
 		handle_exit(1, MSG_ERR_MLX_INIT, &env);
 	env.winptr = mlx_new_window(env.mlxptr, env.w, env.h, (char *)"fract-ol");
 	if (!env.winptr)
 		handle_exit(1, MSG_ERR_WIN_INIT, &env);
+	palette_init(&env);
 	mlx_key_hook(env.winptr, handle_keys, &env);
 	mlx_mouse_hook(env.winptr, handle_mouse, &env);
 	mlx_loop(env.mlxptr);

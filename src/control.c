@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:25:14 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/15 04:33:52 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 01:17:16 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	handle_keys(int key, void *env)
  * Hook called by mlx_mouse_hook
  *
  * @param key key code which triggered this hook.
+ * @param x mouse x coordinate
+ * @param y mouse y coordinate
  * @param env Environment variables.
  *
  * @returns None
@@ -49,4 +51,23 @@ int	handle_mouse(int key, int x, int y, void *param)
 	if (key == MOUSE_UP || key == MOUSE_DOWN)
 		handle_zoom(key, x, y, env);
 	return (0);
+}
+
+/**
+ * Zoom handler
+ *
+ * @param key key code which triggered this hook.
+ * @param x mouse x coordinate
+ * @param y mouse y coordinate
+ * @param env Environment variables.
+ *
+ * @returns None
+ */
+void	handle_zoom(int key, int x, int y, t_env *env)
+{
+	if (x == 0 && y == 0)
+		return ;
+	zoom_increment(key, env);
+	zoom_update_view(x, y, env);
+	render_fractal(env);
 }

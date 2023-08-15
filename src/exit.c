@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:50:17 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/02 01:08:19 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 01:21:41 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	handle_exit(int error, const char *msg, t_env *env)
 {
-	(void)env;
+	if (env->hstr)
+		free(env->hstr);
+	if (env->wstr)
+		free(env->wstr);
 	if (error == 0)
 		exit(0);
 	else
