@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:22:46 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/15 04:31:51 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/15 04:53:08 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@ void	handle_zoom(int key, int x, int y, t_env *env)
 	env->yf = env->ym;
 	if (key == MOUSE_UP && env->zoom <= MAX_ZOOM)
 		env->zoom += env->zoom_step;
-	else if (key == MOUSE_DOWN && env->zoom > env->zoom_step)
-		env->zoom -= env->zoom_step;
+	else if (key == MOUSE_DOWN)
+	{
+		if (env->zoom > env->zoom_step)
+			env->zoom -= env->zoom_step;
+		else if (env->zoom > 0)
+			env->zoom = 0;
+		else
+			return;
+	}
 	render_fractal(env);
 }
 

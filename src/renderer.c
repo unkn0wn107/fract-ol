@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/15 04:32:37 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/15 04:45:04 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 	{
 		z2[0] = sqrt(z[0]);
 		z2[1] = sqrt(z[1]);
-		tmp = z2[0] - z2[1] + COEFF * (x - env->x0) / env->zoom;
-		z[1] = 2 * z[0] * z[1] + COEFF * (y - env->y0) / env->zoom;
+		tmp = z2[0] - z2[1] + COEFF * (x + env->xm - env->x0) / env->zoom;
+		z[1] = 2 * z[0] * z[1] + COEFF * (y + env->ym - env->y0) / env->zoom;
 		z[0] = tmp;
 		i++;
 	}
