@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 21:10:26 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 02:34:14 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 12:38:57 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	coords_reset(t_env *env)
 {
-	env->x0 = env->w / 2;
-	env->y0 = env->h / 2;
+	env->xoff = env->w / 2;
+	env->yoff = env->h / 2;
+	env->x0 = env->xoff;
+	env->y0 = env->yoff;
 }
 
 void	zoom_reset(t_env *env)
@@ -44,6 +46,12 @@ void	palette_init(t_env *env)
 
 void	zoom_update_view(int x, int y, t_env *env)
 {
-	env->x0 = (env->x0 - x) / env->zoom;
-	env->y0 = (env->y0 - y) / env->zoom;
+	env->xmin = (double)(x - env->xoff) / env->zoom;
+	env->ymin = (double)(y - env->yoff) / env->zoom;
+	env->xmax = (double)(x + env->xoff) / env->zoom;
+	env->ymax = (double)(y + env->yoff) / env->zoom;
+	env->xmult = (env->xmax - env->xmin) / fabs(env->xmax + env->xmin);
+	env->ymult = (env->ymax - env->ymin) / fabs(env->ymax + env->ymin);
+	env->x0 = (env->xmax + env->xmin) / 2;
+	env->y0 = (env->ymax + env->ymin) / 2;
 }

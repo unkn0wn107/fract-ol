@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 02:26:53 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 14:30:01 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 	z[1] = 0.0;
 	z2[0] = 0.0;
 	z2[1] = 0.0;
-	coord[0] = (double)(x - env->w / 2 - env->x0) / env->zoom;
-	coord[1] = (double)(y - env->h / 2 - env->y0) / env->zoom;
+	coord[0] = env->xmin * (1.0 - (x - env->xoff) / env->w) + (env->xmax * (x - env->xoff) / env->w);
+	coord[1] = env->ymin * (1.0 - (y - env->yoff) / env->h) + (env->ymax * (y - env->yoff) / env->h);
 	while (i < env->iter && z2[0] + z2[1] <= 4)
 	{
 		z2[0] = z[0] * z[0];
@@ -42,6 +42,9 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 		mlx_pixel_put(env->mlxptr, env->winptr, x, y,
 			env->palette[i % PALETTE_SIZE]);
 }
+
+	// coord[0] = env->xmult * ((double)(x - env->xoff) + env->x0);
+	// coord[1] = env->ymult * ((double)(y - env->yoff) + env->y0);
 
 // static void	render_mandelbrot(t_env *env, int x, int y)
 // {
