@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 21:10:26 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 12:38:57 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 15:30:21 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	coords_init(t_env *env)
 void	palette_init(t_env *env)
 {
 	int		i;
-	double	gradient_step;
+	double	grad_step;
 
 	i = 0;
-	gradient_step = (double)0xFFFFFF / PALETTE_SIZE;
+	grad_step = (double)0xFFFFFF / PALETTE_SIZE;
 	while (i++ < PALETTE_SIZE)
-		env->palette[i] = (unsigned int)(i * gradient_step);
+		env->palette[i] = (mlx_get_color_value(env->mlxptr, i) * grad_step);
 }
 
 void	zoom_update_view(int x, int y, t_env *env)

@@ -19,12 +19,12 @@
 # include <complex.h>
 # include <limits.h>
 
-# define PALETTE_SIZE 25
+# define PALETTE_SIZE 4
 # define MAX_ZOOM INT_MAX
 # define WIN_WIDTH 1918
 # define WIN_HEIGHT 1024
 
-# define COEFF 0.1
+# define COEFF 10
 
 # define MIN_COLOR_SETS 0
 # define MAX_COLOR_SETS 1
@@ -39,6 +39,7 @@
 # define MOUSE_UP 4
 # define MOUSE_DOWN 5
 
+# define KEY_ENTER 65293
 # define KEY_ESC 65307
 # define KEY_LEFT 65361
 # define KEY_UP 65362
@@ -80,15 +81,16 @@ typedef struct s_env
 	double			ymax;
 	double			xmult;
 	double			ymult;
-	size_t			iter;
-	void			*image;
-	char			*img_data;
 	int				xoff;
 	int				yoff;
+	void			*img_prev;
+	void			*img;
+	char			*img_data;
 	int				xm;
 	int				ym;
 	unsigned int	palette[PALETTE_SIZE];
 	int				color;
+	size_t			iter;
 }t_env;
 
 void	init_env(t_env *env);
@@ -110,9 +112,11 @@ void	palette_init(t_env *env);
 void	zoom_update_view(int x, int y, t_env *env);
 
 // Window
+void	image_init(t_env *env);
 void	handle_zoom(int key, int x, int y, t_env *env);
-void	create_image(t_env *env);
-void	refresh_image(t_env *env);
+void	image_create(t_env *env);
+void	image_refresh(t_env *env);
+void	plot(t_env *env, int x, int y, int color);
 
 // Control
 int		handle_keys(int key, void *env);

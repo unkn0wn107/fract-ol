@@ -18,9 +18,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		handle_exit(1, MSG_ERR_ARGS, NULL);
-	env.image = NULL;
 	parse_args(argv, &env);
 	coords_init(&env);
+	image_init(&env);
 	env.mlxptr = mlx_init();
 	if (!env.mlxptr)
 		handle_exit(1, MSG_ERR_MLX_INIT, &env);

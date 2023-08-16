@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 14:30:01 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 15:33:32 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 		i++;
 	}
 	if (i == env->iter)
-		mlx_pixel_put(env->mlxptr, env->winptr, x, y, 0);
+		plot(env, x, y, 0);
 	else
-		mlx_pixel_put(env->mlxptr, env->winptr, x, y,
-			env->palette[i % PALETTE_SIZE]);
+		plot(env, x, y, env->palette[i % PALETTE_SIZE]);
 }
 
 	// coord[0] = env->xmult * ((double)(x - env->xoff) + env->x0);
@@ -155,7 +154,7 @@ void	render_fractal(t_env *env)
 		fun = render_burningship;
 	else
 		handle_exit(1, MSG_ERR_ARGS, NULL);
-	create_image(env);
+	image_create(env);
 	y = 0;
 	while (y < env->h)
 	{
@@ -167,7 +166,7 @@ void	render_fractal(t_env *env)
 		}
 		y++;
 	}
-	// refresh_image(env);
+	image_refresh(env);
 }
 
 			// m[row][col] = env->x0f - env->x0 + col * (2.0 * env->zoom) / width;

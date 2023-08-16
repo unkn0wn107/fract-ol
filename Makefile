@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:01:07 by agaley            #+#    #+#              #
-#    Updated: 2023/08/16 01:41:22 by agaley           ###   ########lyon.fr    #
+#    Updated: 2023/08/16 16:00:07 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,9 @@ test:					unit-test
 
 test-mem:				unit-test
 		valgrind --leak-check=full --show-leak-kinds=all ./unit-test
+
+mem:					$(NAME)
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./fractol mandelbrot 100 100
 
 check:
 		norminette ${SRC_DIR} ${LIBFT} ${TEST_DIR}
