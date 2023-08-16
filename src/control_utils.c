@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 01:07:14 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 01:16:58 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 01:49:45 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ void	zoom_increment(int key, t_env *env)
 		env->zoom += env->zoom_step;
 	else if (key == MOUSE_DOWN)
 	{
+		ft_printf("%d\n", env->zoom);
 		if (env->zoom > env->zoom_step)
 			env->zoom -= env->zoom_step;
-		else if (env->zoom > 0)
-			env->zoom = 0;
 		else
-			return ;
+			coords_init(env);
 	}
 }

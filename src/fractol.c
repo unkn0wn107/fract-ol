@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 		handle_exit(1, MSG_ERR_ARGS, NULL);
 	env.image = NULL;
 	parse_args(argv, &env);
-	init_env(&env);
+	coords_init(&env);
 	env.mlxptr = mlx_init();
 	if (!env.mlxptr)
 		handle_exit(1, MSG_ERR_MLX_INIT, &env);

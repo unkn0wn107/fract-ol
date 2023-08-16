@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 01:23:01 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 02:26:53 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	render_mandelbrot(t_env *env, int x, int y)
 	z[1] = 0.0;
 	z2[0] = 0.0;
 	z2[1] = 0.0;
-	coord[0] = (double)x / env->wzoom - env->x0;
-	coord[1] = (double)y / env->hzoom - env->y0;
+	coord[0] = (double)(x - env->w / 2 - env->x0) / env->zoom;
+	coord[1] = (double)(y - env->h / 2 - env->y0) / env->zoom;
 	while (i < env->iter && z2[0] + z2[1] <= 4)
 	{
 		z2[0] = z[0] * z[0];

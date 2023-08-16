@@ -69,13 +69,7 @@ typedef struct s_env
 	char			*wstr;
 	size_t			zoom;
 	size_t			zoom_step;
-	size_t			wzoom;
-	size_t			hzoom;
 	int				fract;
-	int				xoff;
-	int				yoff;
-	double			xf;
-	double			yf;
 	double			x0f;
 	double			y0f;
 	double			x0;
@@ -101,6 +95,9 @@ void	handle_exit(int error, const char *msg, t_env *env);
 void	render_fractal(t_env *env);
 
 // Renderer utils
+void	coords_reset(t_env *env);
+void	zoom_reset(t_env *env);
+void	coords_init(t_env *env);
 void	palette_init(t_env *env);
 void	zoom_update_view(int x, int y, t_env *env);
 

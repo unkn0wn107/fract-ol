@@ -6,11 +6,30 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 21:10:26 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 01:25:13 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/16 02:34:14 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	coords_reset(t_env *env)
+{
+	env->x0 = env->w / 2;
+	env->y0 = env->h / 2;
+}
+
+void	zoom_reset(t_env *env)
+{
+	env->zoom = env->x0 / 2;
+	env->zoom_step = env->x0 / 2;
+}
+
+void	coords_init(t_env *env)
+{
+	env->iter = 25;
+	coords_reset(env);
+	zoom_reset(env);
+}
 
 void	palette_init(t_env *env)
 {
@@ -25,8 +44,6 @@ void	palette_init(t_env *env)
 
 void	zoom_update_view(int x, int y, t_env *env)
 {
-	env->x0 = (env->x0 + x - env->w) / env->wzoom;
-	env->y0 = (env->y0 + y - env->h) / env->hzoom;
-	env->wzoom = env->w * env->zoom * COEFF / env->h;
-	env->hzoom = env->h * env->zoom * COEFF / env->w;
+	env->x0 = (env->x0 - x) / env->zoom;
+	env->y0 = (env->y0 - y) / env->zoom;
 }
