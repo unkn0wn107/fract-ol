@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:50:17 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/17 17:24:47 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/17 17:32:57 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	handle_exit(int error, const char *msg, t_env *env)
 		free(env->wstr);
 	if (env->img)
 		mlx_destroy_image(env->mlxptr, env->img);
-	if (env->img_prev)
-		mlx_destroy_image(env->mlxptr, env->img_prev);
 	mlx_destroy_window(env->mlxptr, env->winptr);
 	mlx_destroy_display(env->mlxptr);
 	free(env->mlxptr);

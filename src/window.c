@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:22:46 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/17 17:22:06 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/17 17:32:20 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	image_init(t_env *env)
 {
 	env->img = NULL;
 	env->img_data = NULL;
-	env->img_prev = NULL;
 }
 
 void	image_create(t_env *env)
 {
+	if (env->img)
+	{		
+		mlx_destroy_image(env->mlxptr, env->img);
+		env->img = NULL;
+	}
 	env->img = mlx_new_image(env->mlxptr, env->w, env->h);
 	if (!env->img)
 		handle_exit(1, MSG_ERR_MEMORY, env);
@@ -29,16 +33,7 @@ void	image_create(t_env *env)
 
 void	image_refresh(t_env *env)
 {
-	void	*tmp;
-
-	tmp = NULL;
-	if (env->img_prev)
-		tmp = env->img_prev;
-	env->img_prev = env->img;
-	if (env->img_prev)
-		mlx_put_image_to_window(env->mlxptr, env->winptr, env->img_prev, 0, 0);
-	if (tmp)
-		mlx_destroy_image(env->mlxptr, tmp);
+	mlx_put_image_to_window(env->mlxptr, env->winptr, env->img, 0, 0);
 }
 
 void	plot(t_env *env, int x, int y, int color)
