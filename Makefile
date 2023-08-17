@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:01:07 by agaley            #+#    #+#              #
-#    Updated: 2023/08/16 16:00:07 by agaley           ###   ########lyon.fr    #
+#    Updated: 2023/08/17 15:46:33 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ OBJ_DIR = obj
 TEST_DIR = test
 
 SRC = ${SRC_DIR}/fractol.c
-SRCS = ${SRC_DIR}/parser.c ${SRC_DIR}/renderer.c ${SRC_DIR}/renderer_utils.c \
+SRCS = ${SRC_DIR}/parser.c \
+		${SRC_DIR}/renderer.c ${SRC_DIR}/renderer_utils.c ${SRC_DIR}/renderer_funcs.c \
 		${SRC_DIR}/window.c ${SRC_DIR}/control.c ${SRC_DIR}/control_utils.c \
-		${SRC_DIR}/matrix.c \
 		${SRC_DIR}/exit.c
 H = ${SRC_DIR}/fractol.h
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

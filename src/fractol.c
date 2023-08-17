@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 	env.winptr = mlx_new_window(env.mlxptr, env.w, env.h, (char *)"fract-ol");
 	if (!env.winptr)
 		handle_exit(1, MSG_ERR_WIN_INIT, &env);
+	env.color = 0;
 	palette_init(&env);
 	mlx_key_hook(env.winptr, handle_keys, &env);
 	mlx_mouse_hook(env.winptr, handle_mouse, &env);

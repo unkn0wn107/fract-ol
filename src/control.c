@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:25:14 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 01:17:16 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/17 05:57:13 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,32 @@
  * Hook called by mlx_key_hook
  *
  * @param key key code which triggered this hook.
- * @param env Environment variables.
+ * @param param Environment variables passed has void* by mlx
  *
  * @returns None
  */
-int	handle_keys(int key, void *env)
+int	handle_keys(int key, void *param)
 {
+	t_env	*env;
+
+	env = (t_env *)param;
 	if (key == KEY_ESC)
 		handle_exit(0, MSG_BYE, env);
-	if (key == KEY_COLOR)
+	if (key == KEY_C)
 		palette_change_color(env);
+	if (key == KEY_ITER_INC)
+		env->iter = env->iter + ITER_STEP;
+	if (key == KEY_ITER_DEC && env->iter > ITER_STEP)
+		env->iter = env->iter - ITER_STEP;
+	if (key == KEY_A || key == KEY_W || key == KEY_D || key == KEY_S)
+		move_increment(key, env);
 	if (key == KEY_PGUP || key == KEY_PGDOWN)
 		zoom_change_step(key, env);
-	render_fractal(env);
+	else
+	{
+		zoom_update_view(env->xoff, env->yoff, env);
+		render_fractal(env);
+	}
 	ft_printf("%d - appuyée\n", key);
 	return (0);
 }
@@ -39,7 +52,7 @@ int	handle_keys(int key, void *env)
  * @param key key code which triggered this hook.
  * @param x mouse x coordinate
  * @param y mouse y coordinate
- * @param env Environment variables.
+ * @param param Environment variables passed has void* by mlx
  *
  * @returns None
  */

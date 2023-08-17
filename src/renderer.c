@@ -6,137 +6,31 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:36:11 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 15:33:32 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/17 15:40:11 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-static void	render_mandelbrot(t_env *env, int x, int y)
-{
-	size_t			i;
-	double			z[2];
-	double			z2[2];
-	double			coord[2];
-	double			tmp;
-
-	i = 0;
-	z[0] = 0.0;
-	z[1] = 0.0;
-	z2[0] = 0.0;
-	z2[1] = 0.0;
-	coord[0] = env->xmin * (1.0 - (x - env->xoff) / env->w) + (env->xmax * (x - env->xoff) / env->w);
-	coord[1] = env->ymin * (1.0 - (y - env->yoff) / env->h) + (env->ymax * (y - env->yoff) / env->h);
-	while (i < env->iter && z2[0] + z2[1] <= 4)
-	{
-		z2[0] = z[0] * z[0];
-		z2[1] = z[1] * z[1];
-		tmp = z2[0] - z2[1] + coord[0];
-		z[1] = 2 * z[0] * z[1] + coord[1];
-		z[0] = tmp;
-		i++;
-	}
-	if (i == env->iter)
-		plot(env, x, y, 0);
-	else
-		plot(env, x, y, env->palette[i % PALETTE_SIZE]);
-}
-
-	// coord[0] = env->xmult * ((double)(x - env->xoff) + env->x0);
-	// coord[1] = env->ymult * ((double)(y - env->yoff) + env->y0);
-
-// static void	render_mandelbrot(t_env *env, int x, int y)
-// {
-// 	float complex	c;
-// 	size_t			i;
-// 	int				color;
-// 	float			re2;
-// 	float			im2;
-
-// 	i = 0;
-// 	c = 0 + 0 * I;
-// 	re2 = sqrt(creal(c));
-// 	im2 = sqrt(cimag(c));
-// 	while (++i <= env->iter && re2 + im2 <= 4.0)
-// 	{
-// 		c = re2 - im2 + creal(c)
-// 			+ 2 * (sqrt(creal(c) + cimag(c)) - re2 - im2) * I;
-// 		re2 = sqrt(creal(c));
-// 		im2 = sqrt(cimag(c));
-// 	}
-// 	if (i == env->iter)
-// 		color = 0;
-// 	else
-// 		((int *)env->image)[x * y] = env->palette[i / env->iter * PALETTE_SIZE];
-// 	ft_printf("%d\n", color);
-// }
-// plot(x, y, collor);
-
-// static void	render_mandelbrot(t_env *env, int x, int y)
-// {
-// 	double complex	c;
-// 	double complex	z;
-// 	size_t			iter;
-// 	c = (x - env->x0f) * 4 / env->w + ((y - env->y0f) * 4 / env->h) * I;
-// 	z = 0;
-// 	iter = 0;
-// 	while (cabs(z) < 2 && iter < env->iter)
-// 	{
-// 		z = z * z + c;
-// 		iter++;
-// 	}
-// 	((int *)env->image)[x * y] = env->palette[iter % PALETTE_SIZE];
-// }
-
-// static void	render_mandelbrot(t_env *env, int x, int y)
-// {
-// 	size_t			i;
-// 	double			z[2];
-// 	double			z2[2];
-// 	double			tmp;
-// 	unsigned int	*image;
-
-// 	i = 0;
-// 	z[0] = 0.0;
-// 	z[1] = 0.0;
-// 	z2[0] = 0.0;
-// 	z2[1] = 0.0;
-// 	image = (unsigned int *)env->img_data;
-// 	while (i < env->iter && z2[0] + z2[1] <= 4)
-// 	{
-// 		z2[0] = sqrt(z[0]);
-// 		z2[1] = sqrt(z[1]);
-// 		tmp = z2[0] - z2[1] + x / env->zoom + env->x0f;
-// 		z[1] = 2 * z[0] * z[1] + y / env->zoom + env->y0f;
-// 		z[0] = tmp;
-// 		i++;
-// 	}
-// 	printf("(%d,%d), ", x, y);
-// 	if (i == env->iter)
-// 		image[y * env->w + x] = 0;
-// 	else
-// 		image[y * env->w + x] = env->palette[i % PALETTE_SIZE];
-// }
-
-static void	render_julia(t_env *env, int x, int y)
-{
-	(void)env;
-	(void)x;
-	(void)y;
-}
-
-static void	render_burningship(t_env *env, int x, int y)
-{
-	(void)env;
-	(void)x;
-	(void)y;
-}
 
 static void	ft_noop(t_env *env, int i, int j)
 {
 	(void)env;
 	(void)i;
 	(void)j;
+}
+
+void	render_iter_func(t_env *env, int x, int y, void (*fun)(t_env*, int, int))
+{
+	while (y < env->h)
+	{
+		x = 0;
+		while (x < env->w)
+		{
+			fun(env, x, y);
+			x++;
+		}
+		y++;
+	}
 }
 
 void	render_fractal(t_env *env)
@@ -155,19 +49,36 @@ void	render_fractal(t_env *env)
 	else
 		handle_exit(1, MSG_ERR_ARGS, NULL);
 	image_create(env);
+	x = 0;
 	y = 0;
-	while (y < env->h)
-	{
-		x = 0;
-		while (x < env->w)
-		{
-			fun(env, x, y);
-			x++;
-		}
-		y++;
-	}
+	render_iter_func(env, x, y, fun);
 	image_refresh(env);
 }
 
-			// m[row][col] = env->x0f - env->x0 + col * (2.0 * env->zoom) / width;
-			// m[row][col] = env->y0f - env->y0 + row * (2.0 * env->zoom) / height;
+void	zoom_update_view(int x, int y, t_env *env)
+{
+	double	xcoeff;
+	double	ycoeff;
+
+	env->xm_prev = env->xm;
+	env->ym_prev = env->ym;
+	env->xm = x;
+	env->ym = y;
+	env->x0_prev = (env->xmax + env->xmin) / 2;
+	env->y0_prev = (env->ymax + env->ymin) / 2;
+	xcoeff = env->xmax - env->xmin;
+	ycoeff = env->ymax - env->ymin;
+	env->x0f = ft_lerp(env, 0, (double)x / (double)env->w);
+	env->y0f = ft_lerp(env, 0, (double)y / (double)env->h);
+	env->xmin = (double)(x - env->xoff - env->w) / (double)(env->w * env->zoom * COEFF);
+	env->ymin = (double)(y - env->yoff - env->h) / (double)(env->h * env->zoom * COEFF);
+	env->xmax = (double)(x - env->xoff + env->w) / (double)(env->w * env->zoom * COEFF);
+	env->ymax = (double)(y - env->yoff + env->h) / (double)(env->h * env->zoom * COEFF);
+	env->xmf = (env->xmax - env->xmin) / fabs(env->xmax + env->xmin);
+	env->ymf = (env->ymax - env->ymin) / fabs(env->ymax + env->ymin);
+	env->x0 = (env->xmax + env->xmin) / 2;
+	env->y0 = (env->ymax + env->ymin) / 2;
+	env->xmove += xcoeff / (env->xmax - env->xmin) * env->x0_prev - env->x0;
+	env->ymove += ycoeff / (env->ymax - env->ymin) * env->y0_prev - env->y0;
+	ft_printf("x0 %d\n", env->x0);
+}

@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 01:07:14 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 01:49:45 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/17 06:14:48 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	palette_change_color(t_env *env)
 {
-	if (env->color >= MIN_COLOR_SETS && env->color <= MAX_COLOR_SETS)
+	if (env->color < MAX_COLOR_SETS)
 		env->color++;
 	else
 		env->color = MIN_COLOR_SETS;
+	ft_printf("%d\n", env->color);
 	palette_init(env);
 	render_fractal(env);
 }
@@ -42,4 +43,16 @@ void	zoom_increment(int key, t_env *env)
 		else
 			coords_init(env);
 	}
+}
+
+void	move_increment(int key, t_env *env)
+{
+	if (key == KEY_A)
+		env->xmove = env->xmove + 5.0 / env->zoom;
+	if (key == KEY_D)
+		env->xmove = env->xmove - 5.0 / env->zoom;
+	if (key == KEY_W)
+		env->ymove = env->ymove + 5.0 / env->zoom;
+	if (key == KEY_S)
+		env->ymove = env->ymove - 5.0 / env->zoom;
 }

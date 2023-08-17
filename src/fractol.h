@@ -16,15 +16,15 @@
 # include "../libft/libft.h"
 # include "../libmlx/mlx.h"
 # include <math.h>
-# include <complex.h>
 # include <limits.h>
 
-# define PALETTE_SIZE 4
+# define PALETTE_SIZE 107
 # define MAX_ZOOM INT_MAX
 # define WIN_WIDTH 1918
 # define WIN_HEIGHT 1024
 
-# define COEFF 10
+# define COEFF 0.01
+# define ITER_STEP 1
 
 # define MIN_COLOR_SETS 0
 # define MAX_COLOR_SETS 1
@@ -45,9 +45,16 @@
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
-# define KEY_COLOR 99
 # define KEY_PGUP 65365
 # define KEY_PGDOWN 65366
+
+# define KEY_A 97
+# define KEY_W 119
+# define KEY_D 100
+# define KEY_S 115
+# define KEY_C 99
+# define KEY_ITER_DEC 44
+# define KEY_ITER_INC 46
 
 # define MSG_ERR_ARGS "Args error\n"
 # define MSG_ERR_MLX_INIT "MLX initialization error\n"
@@ -75,12 +82,16 @@ typedef struct s_env
 	double			y0f;
 	double			x0;
 	double			y0;
+	double			x0_prev;
+	double			y0_prev;
 	double			xmin;
 	double			xmax;
 	double			ymin;
 	double			ymax;
-	double			xmult;
-	double			ymult;
+	double			xmf;
+	double			ymf;
+	double			xmove;
+	double			ymove;
 	int				xoff;
 	int				yoff;
 	void			*img_prev;
@@ -88,6 +99,8 @@ typedef struct s_env
 	char			*img_data;
 	int				xm;
 	int				ym;
+	int				xm_prev;
+	int				ym_prev;
 	unsigned int	palette[PALETTE_SIZE];
 	int				color;
 	size_t			iter;
@@ -103,13 +116,19 @@ void	handle_exit(int error, const char *msg, t_env *env);
 
 // Renderer
 void	render_fractal(t_env *env);
+void	zoom_update_view(int x, int y, t_env *env);
+
+// Renderer funcs
+void	render_mandelbrot(t_env *env, int x, int y);
+void	render_julia(t_env *env, int x, int y);
+void	render_burningship(t_env *env, int x, int y);
 
 // Renderer utils
-void	coords_reset(t_env *env);
 void	zoom_reset(t_env *env);
 void	coords_init(t_env *env);
 void	palette_init(t_env *env);
-void	zoom_update_view(int x, int y, t_env *env);
+double	ft_lerp(t_env *env, int mode, double frac);
+void	set_vec_zero(double z[2], double z2[2]);
 
 // Window
 void	image_init(t_env *env);
@@ -126,6 +145,7 @@ int		handle_mouse(int key, int x, int y, void *env);
 void	palette_change_color(t_env *env);
 void	zoom_change_step(int key, t_env *env);
 void	zoom_increment(int key, t_env *env);
+void	move_increment(int key, t_env *env);
 
 // Matrix
 double	**create_zoom_matrix(size_t width, size_t height, t_env *env);
