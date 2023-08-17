@@ -42,7 +42,6 @@ int	handle_keys(int key, void *param)
 		zoom_update_view(env->xoff, env->yoff, env);
 		render_fractal(env);
 	}
-	ft_printf("%d - appuyée\n", key);
 	return (0);
 }
 

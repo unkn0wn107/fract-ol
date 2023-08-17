@@ -14,7 +14,6 @@ NAME = fractol
 
 SRC_DIR = src
 OBJ_DIR = obj
-TEST_DIR = test
 
 SRC = ${SRC_DIR}/fractol.c
 SRCS = ${SRC_DIR}/parser.c \
@@ -62,7 +61,7 @@ mem:					$(NAME)
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./fractol mandelbrot 100 100
 
 check:
-		norminette ${SRC_DIR} ${LIBFT} ${TEST_DIR}
+		norminette ${SRC_DIR} ${LIBFT}
 
 static:					fclean
 		csbuild -c make
@@ -73,13 +72,12 @@ mkdir:
 clean:
 		$(MAKE_LIBFT) $@
 		$(MAKE_LIBMLX) $@
-		rm -r ${OBJ_DIR}
+		find . -name "${NAME}" -delete
 		find . -name "*.gch" -delete
 
 fclean:					clean
 		$(MAKE_LIBFT) $@
-		find . -name "${NAME}" -delete
-		find . -name "unit-test" -delete
+		find . -type d -name "${OBJ_DIR}" -exec rm -rf {} +
 
 re:						fclean all
 

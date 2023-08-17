@@ -12,10 +12,16 @@
 
 #include "fractol.h"
 
-void	image_init(t_env *env)
+void	init_start(t_env *env)
 {
+	env->mlxptr = NULL;
+	env->winptr = NULL;
 	env->img = NULL;
 	env->img_data = NULL;
+	env->xstr = NULL;
+	env->ystr = NULL;
+	env->wstr = NULL;
+	env->hstr = NULL;
 }
 
 void	image_create(t_env *env)

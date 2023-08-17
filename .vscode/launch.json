@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/fractol",
-			"args": ["mandelbrot", "500", "500"],
+			"args": [],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "make"
 		},

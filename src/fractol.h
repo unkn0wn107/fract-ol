@@ -6,7 +6,7 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:51:50 by agaley            #+#    #+#             */
-/*   Updated: 2023/08/16 01:23:19 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/08/18 00:34:51 by agaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@
 # define KEY_ITER_DEC 44
 # define KEY_ITER_INC 46
 
-# define MSG_ERR_ARGS "Args error\n"
+# define MSG_ERR_ARGS "\nTo use fract-ol, you must enter first the fractal type\n"\
+	"mandelbrot, julia or bship\n"\
+	"You can optionaly pass window width and height as parameters\n"\
+	"You can finally pass julia set parameters, multiply them by 1000\n\n"\
+	"./fractol julia 500 500 285 10\n\n"
 # define MSG_ERR_MLX_INIT "MLX initialization error\n"
 # define MSG_ERR_WIN_INIT "Window initialization error\n"
 # define MSG_ERR_MEMORY "Memory allocation error\n"
@@ -75,6 +79,12 @@ typedef struct s_env
 	int				h;
 	char			*hstr;
 	char			*wstr;
+	char			*xstr;
+	char			*ystr;
+	int				xinput;
+	int				yinput;
+	double			xparam;
+	double			yparam;
 	size_t			zoom;
 	size_t			zoom_step;
 	int				fract;
@@ -110,6 +120,8 @@ void	init_env(t_env *env);
 
 // Parser
 void	parse_args(char **argv, t_env *env);
+void	parse_window_args(char **argv, t_env *env);
+void	parse_fract_params(char **argv, t_env *env);
 
 // Error handlers
 void	handle_exit(int error, const char *msg, t_env *env);
@@ -131,7 +143,7 @@ double	ft_lerp(t_env *env, int mode, double frac);
 void	set_vec_zero(double z[2], double z2[2]);
 
 // Window
-void	image_init(t_env *env);
+void	init_start(t_env *env);
 void	handle_zoom(int key, int x, int y, t_env *env);
 void	image_create(t_env *env);
 void	image_refresh(t_env *env);

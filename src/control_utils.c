@@ -18,7 +18,6 @@ void	palette_change_color(t_env *env)
 		env->color++;
 	else
 		env->color = MIN_COLOR_SETS;
-	ft_printf("%d\n", env->color);
 	palette_init(env);
 	render_fractal(env);
 }
@@ -37,7 +36,6 @@ void	zoom_increment(int key, t_env *env)
 		env->zoom += env->zoom_step;
 	else if (key == MOUSE_DOWN)
 	{
-		ft_printf("%d\n", env->zoom);
 		if (env->zoom > env->zoom_step)
 			env->zoom -= env->zoom_step;
 		else
@@ -48,11 +46,11 @@ void	zoom_increment(int key, t_env *env)
 void	move_increment(int key, t_env *env)
 {
 	if (key == KEY_A)
-		env->xmove = env->xmove + 5.0 / env->zoom;
-	if (key == KEY_D)
 		env->xmove = env->xmove - 5.0 / env->zoom;
+	if (key == KEY_D)
+		env->xmove = env->xmove + 5.0 / env->zoom;
 	if (key == KEY_W)
-		env->ymove = env->ymove + 5.0 / env->zoom;
-	if (key == KEY_S)
 		env->ymove = env->ymove - 5.0 / env->zoom;
+	if (key == KEY_S)
+		env->ymove = env->ymove + 5.0 / env->zoom;
 }

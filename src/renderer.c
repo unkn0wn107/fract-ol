@@ -19,7 +19,7 @@ static void	ft_noop(t_env *env, int i, int j)
 	(void)j;
 }
 
-void	render_iter_func(t_env *env, int x, int y, void (*fun)(t_env*, int, int))
+static void	render_iter(t_env *env, int x, int y, void (*fun)(t_env*, int, int))
 {
 	while (y < env->h)
 	{
@@ -51,7 +51,7 @@ void	render_fractal(t_env *env)
 	image_create(env);
 	x = 0;
 	y = 0;
-	render_iter_func(env, x, y, fun);
+	render_iter(env, x, y, fun);
 	image_refresh(env);
 }
 
@@ -60,22 +60,20 @@ void	zoom_update_view(int x, int y, t_env *env)
 	double	xcoeff;
 	double	ycoeff;
 
-	env->xm_prev = env->xm;
-	env->ym_prev = env->ym;
 	env->xm = x;
 	env->ym = y;
 	env->x0_prev = (env->xmax + env->xmin) / 2;
 	env->y0_prev = (env->ymax + env->ymin) / 2;
 	xcoeff = env->xmax - env->xmin;
 	ycoeff = env->ymax - env->ymin;
-	env->x0f = ft_lerp(env, 0, (double)x / (double)env->w);
-	env->y0f = ft_lerp(env, 0, (double)y / (double)env->h);
-	env->xmin = (double)(x - env->xoff - env->w) / (double)(env->w * env->zoom * COEFF);
-	env->ymin = (double)(y - env->yoff - env->h) / (double)(env->h * env->zoom * COEFF);
-	env->xmax = (double)(x - env->xoff + env->w) / (double)(env->w * env->zoom * COEFF);
-	env->ymax = (double)(y - env->yoff + env->h) / (double)(env->h * env->zoom * COEFF);
-	env->xmf = (env->xmax - env->xmin) / fabs(env->xmax + env->xmin);
-	env->ymf = (env->ymax - env->ymin) / fabs(env->ymax + env->ymin);
+	env->xmin = (double)(x - env->xoff - env->w)
+		/ (double)(env->w * env->zoom * COEFF);
+	env->ymin = (double)(y - env->yoff - env->h)
+		/ (double)(env->h * env->zoom * COEFF);
+	env->xmax = (double)(x - env->xoff + env->w)
+		/ (double)(env->w * env->zoom * COEFF);
+	env->ymax = (double)(y - env->yoff + env->h)
+		/ (double)(env->h * env->zoom * COEFF);
 	env->x0 = (env->xmax + env->xmin) / 2;
 	env->y0 = (env->ymax + env->ymin) / 2;
 	env->xmove += xcoeff / (env->xmax - env->xmin) * env->x0_prev - env->x0;

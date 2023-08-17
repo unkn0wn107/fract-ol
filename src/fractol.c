@@ -16,11 +16,11 @@ int	main(int argc, char **argv)
 {
 	t_env	env;
 
-	if (argc < 2)
+	init_start(&env);
+	if (argc < 2 || argc > 6)
 		handle_exit(1, MSG_ERR_ARGS, NULL);
 	parse_args(argv, &env);
 	coords_init(&env);
-	image_init(&env);
 	env.mlxptr = mlx_init();
 	if (!env.mlxptr)
 		handle_exit(1, MSG_ERR_MLX_INIT, &env);

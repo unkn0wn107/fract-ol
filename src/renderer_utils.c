@@ -15,7 +15,7 @@
 void	zoom_reset(t_env *env)
 {
 	env->zoom = env->w / 16;
-	env->zoom_step = 1;
+	env->zoom_step = 100;
 }
 
 void	coords_init(t_env *env)
