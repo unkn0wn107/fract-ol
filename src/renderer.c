@@ -80,5 +80,4 @@ void	zoom_update_view(int x, int y, t_env *env)
 	env->y0 = (env->ymax + env->ymin) / 2;
 	env->xmove += xcoeff / (env->xmax - env->xmin) * env->x0_prev - env->x0;
 	env->ymove += ycoeff / (env->ymax - env->ymin) * env->y0_prev - env->y0;
-	ft_printf("x0 %d\n", env->x0);
 }

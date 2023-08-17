@@ -25,11 +25,6 @@ H = ${SRC_DIR}/fractol.h
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-SRC_TEST = ${TEST_DIR}/main.test.c ${TEST_DIR}/functions.test.c \
-			${TEST_DIR}/helpers.test.c
-H_TEST = ${TEST_DIR}/test.h
-OBJ_TEST = $(SRC_TEST:$(TEST_DIR)/%.c=$(OBJ_DIR)/%.o)
-
 LIBFT = libft
 LIBFT_A = libft/libft.a
 MAKE_LIBFT = make -C libft
@@ -38,7 +33,7 @@ LIBMLX = libmlx
 LIBMLX_A = libmlx/libmlx.a
 MAKE_LIBMLX = make -C libmlx
 
-LIBEXT = -lXext -lX11 -lm
+LIBEXT = -Lmlx -lmlx -lX11 -lXext -lm
 
 MAKEFLAGS += --no-print-directory
 CFLAGS = -Wall -Wextra -Werror -pipe -g3
@@ -48,7 +43,7 @@ CC = gcc
 all:					${NAME}
 
 ${NAME}:				mkdir ${LIBFT} ${LIBMLX} ${OBJ} ${OBJS} $(H)
-		${CC} ${CFLAGS} ${LIBEXT} ${OBJ} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
+		${CC} ${CFLAGS} ${OBJ} ${OBJS} ${LIBEXT} -L${LIBMLX} -o $@ $(LIBFT_A) $(LIBMLX_A)
 
 lib_ft:
 		$(MAKE_LIBFT)
@@ -60,20 +55,8 @@ lib_mlx:
 
 ${LIBMLX}:				lib_mlx
 
-$(OBJ_DIR)/%.test.o:	$(TEST_DIR)/%.test.c mkdir $(LIBFT_A) $(LIBMLX_A) $(H) $(H_TEST)
+$(OBJ_DIR)/%.o:			$(SRC_DIR)/%.c $(LIBFT_A) $(LIBMLX_A) $(H)
 		$(CC) $(OBJ_FLAGS) -o $@ -c $<
-
-$(OBJ_DIR)/%.o:			$(SRC_DIR)/%.c mkdir $(LIBFT_A) $(LIBMLX_A) $(H)
-		$(CC) $(OBJ_FLAGS) -o $@ -c $<
-
-unit-test:				mkdir ${LIBFT} ${LIBMLX} ${OBJ_TEST} ${OBJS} $(H) $(H_TEST)
-		${CC} ${CFLAGS} ${LIBEXT} -g3 ${OBJ_TEST} ${OBJS} -o $@ $(LIBFT_A) $(LIBMLX_A)
-
-test:					unit-test
-		./unit-test
-
-test-mem:				unit-test
-		valgrind --leak-check=full --show-leak-kinds=all ./unit-test
 
 mem:					$(NAME)
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./fractol mandelbrot 100 100

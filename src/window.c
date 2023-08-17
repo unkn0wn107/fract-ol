@@ -21,7 +21,7 @@ void	image_init(t_env *env)
 void	image_create(t_env *env)
 {
 	if (env->img)
-	{		
+	{
 		mlx_destroy_image(env->mlxptr, env->img);
 		env->img = NULL;
 	}
